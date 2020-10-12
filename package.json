@@ -4,7 +4,7 @@
   "description": "ask a question about frontend",
   "main": "app.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   },
   "repository": {
