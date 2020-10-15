@@ -23,8 +23,30 @@ button {
  */
 
 #sidebar {
-    background-color: #E57373;
+    background-color: #2196F3;
     padding: 15px;
+}
+
+.myBtn{
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+}
+
+.modal {
+    background: #fff;
+    margin: 100px auto;
+    overflow-y: auto;
+    height: 300px;
+    width: 600px;
+    border-radius: 10px;
+}
+
+.modal > h1 {
+    text-align: center;
+}
+.modal-content{
+    padding: 1rem;
 }
 
 @media (min-width: 768px) {
