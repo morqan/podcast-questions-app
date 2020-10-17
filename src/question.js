@@ -16,6 +16,23 @@ export class Question {
             .then(Question.renderList)
     }
 
+    static fetch(token){
+        if (!token){
+            return Promise.resolve(`<p class="error">You have not token</p>`)
+        }
+        return  fetch(`https://podcast-frontend-questions-app.firebaseio.com/questions.json?auth=${token}`)
+                .then(response => response.json())
+                .then( response => {
+                    if (response.error){
+                        return `<p class="error">${response.error}</p>`
+                    }
+                    return response ? Object.keys(response).map(key => ({
+                        ...response[key],
+                        id:key
+                    })) : []
+                })
+    }
+
     static renderList(){
         const questions = getQuestionsFromStorage()
         const html = questions.length ? questions.map(toCard).join('')

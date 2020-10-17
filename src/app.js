@@ -1,5 +1,6 @@
 import {isValid, createModal} from "./utils";
 import {Question} from "./question";
+import {authWithEmailPassword, getAuthForm} from './auth'
 import './styles.css'
 
 const modalBtn = document.getElementById('modalBtn')
@@ -35,5 +36,23 @@ function submitFormHandler(event) {
 }
 
 function openModal() {
-    createModal('Authorization',`<h1>test modal</h1>`)
+    createModal('Authorization',getAuthForm())
+    document.getElementById('auth-form')
+            .addEventListener('submit', authFormHandler, {once:true})
+}
+
+function authFormHandler(event) {
+    event.preventDefault()
+    const modalBtn = event.target.querySelector('button')
+    const email = event.target.querySelector('#email').value
+    const password = event.target.querySelector('#password').value
+    console.log(email,password)
+    modalBtn.disabled = true
+    authWithEmailPassword(email,password)
+        .then(Question.fetch)
+        .then(renderModalAfterAuth)
+}
+
+function renderModalAfterAuth(content) {
+    console.log(content)
 }
