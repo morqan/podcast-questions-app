@@ -23,7 +23,7 @@ export class Question {
         return  fetch(`https://podcast-frontend-questions-app.firebaseio.com/questions.json?auth=${token}`)
                 .then(response => response.json())
                 .then( response => {
-                    if (response.error){
+                    if (response && response.error){
                         return `<p class="error">${response.error}</p>`
                     }
                     return response ? Object.keys(response).map(key => ({
@@ -39,6 +39,13 @@ export class Question {
                     : `<div class="mui--text-headline"> You have not a questions...</div>`
         const list = document.getElementById('list')
         list.innerHTML = html
+    }
+
+    static listToHtml(questions){
+        console.log(questions)
+        return questions.length
+            ? `<ol>${questions.map(ques => `<li>${ques.text}</li>`).join('')}</ol>`
+            : `<p>You have not questions</p>`
     }
 }
 function addToStorage(question) {

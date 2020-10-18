@@ -51,8 +51,13 @@ function authFormHandler(event) {
     authWithEmailPassword(email,password)
         .then(Question.fetch)
         .then(renderModalAfterAuth)
+        .then(() => modalBtn.disabled = false )
 }
 
 function renderModalAfterAuth(content) {
-    console.log(content)
+    if (typeof content === 'string'){
+        createModal('Error', content)
+    } else {
+        createModal('List of questions:', Question.listToHtml(content))
+    }
 }
